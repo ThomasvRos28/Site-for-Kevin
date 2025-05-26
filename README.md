@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 # MaterialFlow Dashboard
 
 A professional full-stack web application for managing material tickets with file uploads, client management, and invoice processing. Streamline your material workflow with an intuitive interface and powerful backend API.
@@ -174,6 +173,3 @@ A professional full-stack web application for managing material tickets with fil
 ## License
 
 This project is for demonstration purposes.
-=======
-# Site-for-Kevin
->>>>>>> 38d085235ce12453923845379d5365ba5c011be0

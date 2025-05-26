@@ -19,6 +19,7 @@ interface Ticket {
   jobProjectId?: string
   materialType?: string
   loadQuantity?: string
+  loadUnit?: string
   ticketNumber?: string
   driverName?: string
   isManualEntry?: boolean
@@ -150,7 +151,7 @@ const TicketArchive = () => {
     <div className="ticket-archive">
       <header className="page-header">
         <div className="header-content">
-          <button 
+          <button
             className="back-button"
             onClick={() => navigate('/material-ticketing')}
           >
@@ -255,7 +256,7 @@ const TicketArchive = () => {
                       <td>{ticket.loadQuantity || 'N/A'}</td>
                       <td>{ticket.driverName || 'N/A'}</td>
                       <td>
-                        <span 
+                        <span
                           className="status-badge"
                           style={{ backgroundColor: getStatusColor(ticket.status) }}
                         >
@@ -264,7 +265,7 @@ const TicketArchive = () => {
                       </td>
                       <td>
                         {(ticket.imageUrl || ticket.filePath) ? (
-                          <button 
+                          <button
                             className="image-link"
                             onClick={() => handleImageClick(ticket)}
                             title="Click to view image"
@@ -292,14 +293,14 @@ const TicketArchive = () => {
         {totalPages > 1 && (
           <section className="pagination-section">
             <div className="pagination">
-              <button 
+              <button
                 className="page-button"
                 onClick={() => handlePageChange(currentPage - 1)}
                 disabled={currentPage === 1}
               >
                 Previous
               </button>
-              
+
               <div className="page-numbers">
                 {Array.from({ length: Math.min(5, totalPages) }, (_, i) => {
                   const page = Math.max(1, currentPage - 2) + i
@@ -316,7 +317,7 @@ const TicketArchive = () => {
                 })}
               </div>
 
-              <button 
+              <button
                 className="page-button"
                 onClick={() => handlePageChange(currentPage + 1)}
                 disabled={currentPage === totalPages}

@@ -452,6 +452,156 @@ app.get('/api/tickets/archive', async (req, res) => {
   }
 });
 
+// POST /api/trucker/login - Trucker login
+app.post('/api/trucker/login', async (req, res) => {
+  try {
+    const { driverName, driverCode } = req.body;
+
+    if (!driverName || !driverCode) {
+      return res.status(400).json({ error: 'Driver name and code are required' });
+    }
+
+    // For demo purposes, we'll accept any driver name with a simple code validation
+    // In production, this would check against a proper driver database
+    const normalizedName = driverName.trim().toLowerCase();
+    const normalizedCode = driverCode.trim().toLowerCase();
+
+    // Simple validation: code should be at least 3 characters
+    if (normalizedCode.length < 3) {
+      return res.status(401).json({ error: 'Invalid driver code' });
+    }
+
+    // Check if driver has any tickets in the system
+    const tickets = await readJsonFile(TICKETS_FILE);
+    const driverTickets = tickets.filter(ticket =>
+      ticket.driverName && ticket.driverName.toLowerCase().includes(normalizedName)
+    );
+
+    res.json({
+      success: true,
+      driver: {
+        name: driverName.trim(),
+        code: driverCode.trim()
+      },
+      hasTickets: driverTickets.length > 0
+    });
+  } catch (error) {
+    console.error('Trucker login error:', error);
+    res.status(500).json({ error: 'Login failed' });
+  }
+});
+
+// GET /api/trucker/stats - Get trucker statistics
+app.get('/api/trucker/stats', async (req, res) => {
+  try {
+    const { driverName } = req.query;
+
+    if (!driverName) {
+      return res.status(400).json({ error: 'Driver name is required' });
+    }
+
+    const tickets = await readJsonFile(TICKETS_FILE);
+    const normalizedDriverName = driverName.toLowerCase();
+
+    // Filter tickets for this driver
+    const driverTickets = tickets.filter(ticket =>
+      ticket.driverName && ticket.driverName.toLowerCase().includes(normalizedDriverName)
+    );
+
+    // Calculate total loads and quantities by unit type
+    const totalLoads = driverTickets.length;
+    let totalCubicYards = 0;
+    let totalTons = 0;
+    let totalOtherUnits = 0;
+
+    driverTickets.forEach(ticket => {
+      if (ticket.loadQuantity) {
+        const quantity = parseFloat(ticket.loadQuantity);
+        if (!isNaN(quantity)) {
+          const unit = ticket.loadUnit || '';
+
+          if (unit.toLowerCase().includes('cubic yard') || unit.toLowerCase().includes('yard')) {
+            totalCubicYards += quantity;
+          } else if (unit.toLowerCase().includes('ton')) {
+            totalTons += quantity;
+          } else {
+            totalOtherUnits += quantity;
+          }
+        }
+      }
+    });
+
+    // Get recent loads (last 10)
+    const recentLoads = driverTickets
+      .sort((a, b) => new Date(b.date || b.uploadDate) - new Date(a.date || a.uploadDate))
+      .slice(0, 10)
+      .map(ticket => ({
+        id: ticket.id,
+        date: ticket.date || ticket.uploadDate,
+        clientName: ticket.clientName,
+        materialType: ticket.materialType || 'Material',
+        loadQuantity: ticket.loadQuantity || 'N/A',
+        loadUnit: ticket.loadUnit || 'N/A',
+        ticketNumber: ticket.ticketNumber || 'N/A'
+      }));
+
+    // Calculate monthly stats (simplified for demo)
+    const monthlyStats = [];
+    const currentDate = new Date();
+    for (let i = 5; i >= 0; i--) {
+      const monthDate = new Date(currentDate.getFullYear(), currentDate.getMonth() - i, 1);
+      const monthName = monthDate.toLocaleDateString('en-US', { month: 'short', year: 'numeric' });
+
+      const monthTickets = driverTickets.filter(ticket => {
+        const ticketDate = new Date(ticket.date || ticket.uploadDate);
+        return ticketDate.getMonth() === monthDate.getMonth() &&
+               ticketDate.getFullYear() === monthDate.getFullYear();
+      });
+
+      let monthCubicYards = 0;
+      let monthTons = 0;
+      let monthOtherUnits = 0;
+
+      monthTickets.forEach(ticket => {
+        if (ticket.loadQuantity) {
+          const quantity = parseFloat(ticket.loadQuantity);
+          if (!isNaN(quantity)) {
+            const unit = ticket.loadUnit || '';
+
+            if (unit.toLowerCase().includes('cubic yard') || unit.toLowerCase().includes('yard')) {
+              monthCubicYards += quantity;
+            } else if (unit.toLowerCase().includes('ton')) {
+              monthTons += quantity;
+            } else {
+              monthOtherUnits += quantity;
+            }
+          }
+        }
+      });
+
+      monthlyStats.push({
+        month: monthName,
+        loads: monthTickets.length,
+        cubicYards: monthCubicYards,
+        tons: monthTons,
+        otherUnits: monthOtherUnits
+      });
+    }
+
+    res.json({
+      totalLoads,
+      totalCubicYards,
+      totalTons,
+      totalOtherUnits,
+      recentLoads,
+      monthlyStats
+    });
+  } catch (error) {
+    console.error('Fetch trucker stats error:', error);
+    res.status(500).json({ error: 'Failed to fetch trucker stats' });
+  }
+});
+
 // Health check endpoint
 app.get('/api/health', (req, res) => {
   res.json({ status: 'OK', timestamp: new Date().toISOString() });

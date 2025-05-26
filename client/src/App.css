@@ -6,6 +6,38 @@
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
+/* Ensure non-home pages have dark text */
+.app > div:not(.home-container):not(.trucker-login-container):not(.trucker-stats-container) {
+  color: #333 !important;
+}
+
+.app > div:not(.home-container):not(.trucker-login-container):not(.trucker-stats-container) * {
+  color: inherit !important;
+}
+
+/* Specific overrides for components that should have dark text */
+.administration,
+.material-ticketing,
+.mto-flagship,
+.ticket-archive {
+  color: #333 !important;
+}
+
+.administration *,
+.material-ticketing *,
+.mto-flagship *,
+.ticket-archive * {
+  color: inherit !important;
+}
+
+/* Exception for headers that should remain white */
+.page-header,
+.admin-header,
+.page-header *,
+.admin-header * {
+  color: white !important;
+}
+
 /* Global button styles */
 button {
   font-family: inherit;

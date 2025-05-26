@@ -24,6 +24,7 @@ interface Ticket {
   jobProjectId?: string
   materialType?: string
   loadQuantity?: string
+  loadUnit?: string
   ticketNumber?: string
   driverName?: string
   isManualEntry?: boolean

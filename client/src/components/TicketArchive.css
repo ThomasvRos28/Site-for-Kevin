@@ -2,6 +2,36 @@
   min-height: 100vh;
   background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   padding: 2rem;
+  color: #333 !important;
+}
+
+/* Ensure all text in ticket archive is dark */
+.ticket-archive * {
+  color: inherit !important;
+}
+
+.ticket-archive h1,
+.ticket-archive h2,
+.ticket-archive h3,
+.ticket-archive h4,
+.ticket-archive h5,
+.ticket-archive h6 {
+  color: #333 !important;
+}
+
+.ticket-archive p,
+.ticket-archive span,
+.ticket-archive div,
+.ticket-archive label,
+.ticket-archive td,
+.ticket-archive th {
+  color: #333 !important;
+}
+
+.ticket-archive input,
+.ticket-archive select,
+.ticket-archive textarea {
+  color: #333 !important;
 }
 
 .page-header {
@@ -315,28 +345,28 @@
   .ticket-archive {
     padding: 1rem;
   }
-  
+
   .page-header {
     padding: 1.5rem;
   }
-  
+
   .page-header h1 {
     font-size: 2rem;
   }
-  
+
   .filters-grid {
     grid-template-columns: 1fr;
   }
-  
+
   .tickets-table {
     font-size: 0.8rem;
   }
-  
+
   .tickets-table th,
   .tickets-table td {
     padding: 0.75rem 0.5rem;
   }
-  
+
   .pagination {
     flex-wrap: wrap;
     justify-content: center;

@@ -23,6 +23,7 @@ const ManualTicketForm = ({ onTicketCreated }: ManualTicketFormProps) => {
     jobProjectId: '',
     materialType: '',
     loadQuantity: '',
+    loadUnit: '',
     ticketNumber: '',
     driverName: '',
     notes: '',
@@ -76,14 +77,23 @@ const ManualTicketForm = ({ onTicketCreated }: ManualTicketFormProps) => {
     'Other'
   ]
 
+  const loadUnits = [
+    'Cubic Yards',
+    'Tons',
+    'Loads',
+    'Cubic Feet',
+    'Square Yards',
+    'Linear Feet'
+  ]
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     setSubmitting(true)
     setMessage('')
 
     // Validate required fields
-    if (!formData.clientId || !formData.ticketNumber || !formData.materialType || !formData.loadQuantity) {
-      setMessage('Please fill in all required fields (Client, Ticket Number, Material Type, Load Quantity)')
+    if (!formData.clientId || !formData.ticketNumber || !formData.materialType || !formData.loadQuantity || !formData.loadUnit) {
+      setMessage('Please fill in all required fields (Client, Ticket Number, Material Type, Load Quantity, Load Unit)')
       setSubmitting(false)
       return
     }
@@ -117,6 +127,7 @@ const ManualTicketForm = ({ onTicketCreated }: ManualTicketFormProps) => {
         jobProjectId: formData.jobProjectId,
         materialType: formData.materialType,
         loadQuantity: formData.loadQuantity,
+        loadUnit: formData.loadUnit,
         ticketNumber: formData.ticketNumber,
         driverName: formData.driverName,
         isManualEntry: true
@@ -145,6 +156,7 @@ const ManualTicketForm = ({ onTicketCreated }: ManualTicketFormProps) => {
           jobProjectId: '',
           materialType: '',
           loadQuantity: '',
+          loadUnit: '',
           ticketNumber: '',
           driverName: '',
           notes: '',
@@ -251,13 +263,33 @@ const ManualTicketForm = ({ onTicketCreated }: ManualTicketFormProps) => {
           <input
             id="loadQuantity"
             name="loadQuantity"
-            type="text"
+            type="number"
+            step="0.01"
+            min="0"
             value={formData.loadQuantity}
             onChange={handleInputChange}
-            placeholder="e.g., 10 tons, 5 yards..."
+            placeholder="e.g., 10, 5.5..."
             required
           />
         </div>
+      </div>
+
+      <div className="form-group">
+        <label htmlFor="loadUnit">Load Unit: *</label>
+        <select
+          id="loadUnit"
+          name="loadUnit"
+          value={formData.loadUnit}
+          onChange={handleInputChange}
+          required
+        >
+          <option value="">Select unit</option>
+          {loadUnits.map(unit => (
+            <option key={unit} value={unit}>
+              {unit}
+            </option>
+          ))}
+        </select>
       </div>
 
       <div className="form-group">
@@ -321,7 +353,7 @@ const ManualTicketForm = ({ onTicketCreated }: ManualTicketFormProps) => {
       <button
         type="submit"
         className="submit-button"
-        disabled={submitting || !formData.clientId || !formData.ticketNumber || !formData.materialType || !formData.loadQuantity}
+        disabled={submitting || !formData.clientId || !formData.ticketNumber || !formData.materialType || !formData.loadQuantity || !formData.loadUnit}
       >
         {submitting ? 'Creating...' : 'Create Ticket'}
       </button>

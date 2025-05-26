@@ -4,6 +4,8 @@ import MaterialTicketing from './components/MaterialTicketing'
 import TicketArchive from './components/TicketArchive'
 import Administration from './components/Administration'
 import MTOFlagship from './components/MTOFlagship'
+import TruckerLogin from './components/TruckerLogin'
+import TruckerStats from './components/TruckerStats'
 import './App.css'
 
 function App() {
@@ -16,6 +18,8 @@ function App() {
           <Route path="/material-ticketing" element={<MaterialTicketing />} />
           <Route path="/ticket-archive" element={<TicketArchive />} />
           <Route path="/mto-flagship" element={<MTOFlagship />} />
+          <Route path="/trucker-login" element={<TruckerLogin />} />
+          <Route path="/trucker-stats" element={<TruckerStats />} />
         </Routes>
       </div>
     </Router>

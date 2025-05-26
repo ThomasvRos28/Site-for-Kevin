@@ -1,41 +1,46 @@
+/* Mobile-first design */
 .manual-ticket-form {
   background: #fafafa;
   border: 1px solid #e0e0e0;
   border-radius: 8px;
-  padding: 1.5rem;
-  max-width: 600px;
+  padding: 1rem;
   width: 100%;
+  max-width: 100%;
 }
 
 .manual-ticket-form .form-row {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 1rem;
-  margin-bottom: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  margin-bottom: 1rem;
 }
 
 .manual-ticket-form .form-group {
-  margin-bottom: 1.5rem;
+  margin-bottom: 1rem;
 }
 
 .manual-ticket-form label {
   display: block;
-  margin-bottom: 0.5rem;
+  margin-bottom: 0.75rem;
   font-weight: 600;
   color: #333;
-  font-size: 0.9rem;
+  font-size: 1rem;
+  line-height: 1.4;
 }
 
+/* Mobile-first: Large touch targets */
 .manual-ticket-form input,
 .manual-ticket-form select,
 .manual-ticket-form textarea {
   width: 100%;
-  padding: 0.75rem;
-  border: 1px solid #ddd;
-  border-radius: 6px;
-  font-size: 0.9rem;
+  padding: 1rem;
+  border: 2px solid #ddd;
+  border-radius: 8px;
+  font-size: 1rem;
+  line-height: 1.5;
   transition: border-color 0.3s ease;
   box-sizing: border-box;
+  min-height: 48px; /* Minimum touch target size */
 }
 
 .manual-ticket-form input:focus,
@@ -48,17 +53,18 @@
 
 .manual-ticket-form textarea {
   resize: vertical;
-  min-height: 100px;
+  min-height: 120px;
   font-family: inherit;
 }
 
 .manual-ticket-form .file-input {
-  padding: 0.5rem;
+  padding: 1rem;
   border: 2px dashed #ddd;
-  border-radius: 6px;
+  border-radius: 8px;
   background: #f9f9f9;
   cursor: pointer;
   transition: border-color 0.3s ease;
+  min-height: 48px;
 }
 
 .manual-ticket-form .file-input:hover {
@@ -89,15 +95,17 @@
 
 .submit-button {
   width: 100%;
-  padding: 0.875rem 1.5rem;
+  padding: 1rem 1.5rem;
   background: #2196F3;
   color: white;
   border: none;
-  border-radius: 6px;
-  font-size: 1rem;
+  border-radius: 8px;
+  font-size: 1.1rem;
   font-weight: 600;
   cursor: pointer;
   transition: all 0.3s ease;
+  min-height: 48px;
+  margin-top: 0.5rem;
 }
 
 .submit-button:hover:not(:disabled) {
@@ -131,30 +139,46 @@
   border: 1px solid #ffcdd2;
 }
 
-/* Responsive Design */
-@media (max-width: 768px) {
+/* Tablet and larger screens */
+@media (min-width: 600px) {
   .manual-ticket-form {
-    padding: 1rem;
-    max-width: 100%;
+    padding: 1.5rem;
+    max-width: 600px;
+    margin: 0 auto;
   }
 
   .manual-ticket-form .form-row {
-    grid-template-columns: 1fr;
-    gap: 0;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
   }
 
   .manual-ticket-form .form-group {
-    margin-bottom: 1rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .manual-ticket-form label {
+    font-size: 0.9rem;
+    margin-bottom: 0.5rem;
   }
 
   .manual-ticket-form input,
   .manual-ticket-form select,
   .manual-ticket-form textarea {
-    padding: 0.625rem;
+    padding: 0.75rem;
+    font-size: 0.9rem;
   }
 
   .submit-button {
-    padding: 0.75rem 1rem;
-    font-size: 0.9rem;
+    padding: 0.875rem 1.5rem;
+    font-size: 1rem;
+  }
+}
+
+/* Desktop screens */
+@media (min-width: 1024px) {
+  .manual-ticket-form {
+    padding: 2rem;
   }
 }

@@ -15,8 +15,22 @@ html, body {
 body {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   line-height: 1.5;
-  color: #333;
+  color: #333 !important;
   background-color: #f5f5f5;
+}
+
+/* Ensure all text elements have proper color inheritance */
+* {
+  color: inherit;
+}
+
+/* Reset any white text inheritance from home page, but preserve trucker pages */
+.app > div:not(.home-container):not(.trucker-login-container):not(.trucker-stats-container) {
+  color: #333 !important;
+}
+
+.app > div:not(.home-container):not(.trucker-login-container):not(.trucker-stats-container) * {
+  color: inherit !important;
 }
 
 #root {
