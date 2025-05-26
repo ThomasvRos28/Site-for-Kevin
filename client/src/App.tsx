@@ -9,8 +9,10 @@ import TruckerStats from './components/TruckerStats'
 import './App.css'
 
 function App() {
+  const basename = import.meta.env.PROD ? '/Site-for-Kevin' : ''
+
   return (
-    <Router>
+    <Router basename={basename}>
       <div className="app">
         <Routes>
           <Route path="/" element={<Home />} />
