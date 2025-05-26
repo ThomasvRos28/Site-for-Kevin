@@ -138,7 +138,7 @@ export const GeneralSettings = ({ settings, onUpdateSettings }: any) => {
     setUploadStatus('Creating preview...')
 
     // Update form data
-    setFormData(prev => ({ ...prev, logo: file }))
+    setFormData((prev: any) => ({ ...prev, logo: file }))
 
     // Create preview - simplified version
     const reader = new FileReader()

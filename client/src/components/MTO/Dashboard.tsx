@@ -11,6 +11,7 @@ interface Ticket {
   unit: string
   price: number
   status: string
+  ticketNumber?: string
 }
 
 interface Client {
@@ -25,14 +26,14 @@ interface DashboardProps {
   clients: Client[]
 }
 
-const Dashboard = ({ tickets, clients }: DashboardProps) => {
+const Dashboard = ({ tickets }: DashboardProps) => {
   const dashboardData = useMemo(() => {
     // Calculate total revenue
     const totalRevenue = tickets.reduce((sum, ticket) => sum + ticket.price, 0)
-    
+
     // Calculate total quantity
     const totalQuantity = tickets.reduce((sum, ticket) => sum + ticket.quantity, 0)
-    
+
     // Group by material type
     const materialData = tickets.reduce((acc, ticket) => {
       if (!acc[ticket.material]) {
@@ -43,7 +44,7 @@ const Dashboard = ({ tickets, clients }: DashboardProps) => {
       acc[ticket.material].count += 1
       return acc
     }, {} as Record<string, { quantity: number; revenue: number; count: number }>)
-    
+
     // Group by client
     const clientData = tickets.reduce((acc, ticket) => {
       if (!acc[ticket.client]) {
@@ -54,7 +55,7 @@ const Dashboard = ({ tickets, clients }: DashboardProps) => {
       acc[ticket.client].count += 1
       return acc
     }, {} as Record<string, { quantity: number; revenue: number; count: number }>)
-    
+
     // Group by status
     const statusData = tickets.reduce((acc, ticket) => {
       if (!acc[ticket.status]) {
@@ -63,7 +64,7 @@ const Dashboard = ({ tickets, clients }: DashboardProps) => {
       acc[ticket.status] += 1
       return acc
     }, {} as Record<string, number>)
-    
+
     // Recent activity (last 7 days)
     const recentTickets = tickets
       .filter(ticket => {
@@ -74,7 +75,7 @@ const Dashboard = ({ tickets, clients }: DashboardProps) => {
       })
       .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
       .slice(0, 5)
-    
+
     return {
       totalRevenue,
       totalQuantity,
@@ -121,7 +122,7 @@ const Dashboard = ({ tickets, clients }: DashboardProps) => {
             <div className="metric-value">{formatCurrency(dashboardData.totalRevenue)}</div>
           </div>
         </div>
-        
+
         <div className="metric-card">
           <div className="metric-icon">📦</div>
           <div className="metric-content">
@@ -129,7 +130,7 @@ const Dashboard = ({ tickets, clients }: DashboardProps) => {
             <div className="metric-value">{dashboardData.totalQuantity.toFixed(1)} tons</div>
           </div>
         </div>
-        
+
         <div className="metric-card">
           <div className="metric-icon">🎫</div>
           <div className="metric-content">
@@ -137,7 +138,7 @@ const Dashboard = ({ tickets, clients }: DashboardProps) => {
             <div className="metric-value">{dashboardData.totalTickets}</div>
           </div>
         </div>
-        
+
         <div className="metric-card">
           <div className="metric-icon">👥</div>
           <div className="metric-content">
@@ -159,9 +160,9 @@ const Dashboard = ({ tickets, clients }: DashboardProps) => {
                   <span className="material-value">{data.quantity.toFixed(1)} tons</span>
                 </div>
                 <div className="bar-container">
-                  <div 
+                  <div
                     className="bar-fill"
-                    style={{ 
+                    style={{
                       width: `${(data.quantity / dashboardData.totalQuantity) * 100}%`,
                       backgroundColor: '#2196f3'
                     }}
@@ -185,9 +186,9 @@ const Dashboard = ({ tickets, clients }: DashboardProps) => {
                   <span className="client-value">{formatCurrency(data.revenue)}</span>
                 </div>
                 <div className="bar-container">
-                  <div 
+                  <div
                     className="bar-fill"
-                    style={{ 
+                    style={{
                       width: `${(data.revenue / dashboardData.totalRevenue) * 100}%`,
                       backgroundColor: '#4caf50'
                     }}
@@ -204,7 +205,7 @@ const Dashboard = ({ tickets, clients }: DashboardProps) => {
           <div className="status-grid">
             {Object.entries(dashboardData.statusData).map(([status, count]) => (
               <div key={status} className="status-item">
-                <div 
+                <div
                   className="status-circle"
                   style={{ backgroundColor: getStatusColor(status) }}
                 >
@@ -233,7 +234,7 @@ const Dashboard = ({ tickets, clients }: DashboardProps) => {
                     </div>
                     <div className="activity-date">{ticket.date}</div>
                   </div>
-                  <div 
+                  <div
                     className="activity-status"
                     style={{ color: getStatusColor(ticket.status) }}
                   >

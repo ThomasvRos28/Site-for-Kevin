@@ -39,7 +39,6 @@ const MaterialTicketing = () => {
   const [totalPages, setTotalPages] = useState(1)
   const [loading, setLoading] = useState(false)
   const [companyLogo, setCompanyLogo] = useState<string | null>(null)
-  const [companyName, setCompanyName] = useState('MaterialFlow Dashboard')
 
   // Load company settings
   useEffect(() => {
@@ -49,9 +48,6 @@ const MaterialTicketing = () => {
         const settings = JSON.parse(savedSettings)
         if (settings.logoPreview) {
           setCompanyLogo(settings.logoPreview)
-        }
-        if (settings.companyName) {
-          setCompanyName(settings.companyName)
         }
       } catch (error) {
         console.error('Error loading company settings:', error)

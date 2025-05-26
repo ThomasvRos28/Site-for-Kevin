@@ -29,7 +29,7 @@ interface ViewExportTicketsProps {
   clients: Client[]
 }
 
-const ViewExportTickets = ({ tickets, clients }: ViewExportTicketsProps) => {
+const ViewExportTickets = ({ tickets }: ViewExportTicketsProps) => {
   const [currentPage, setCurrentPage] = useState(1)
   const [itemsPerPage, setItemsPerPage] = useState(10)
   const [sortField, setSortField] = useState<keyof Ticket>('date')
@@ -69,8 +69,10 @@ const ViewExportTickets = ({ tickets, clients }: ViewExportTicketsProps) => {
         bValue = (bValue as string).toLowerCase()
       }
 
-      if (aValue < bValue) return sortDirection === 'asc' ? -1 : 1
-      if (aValue > bValue) return sortDirection === 'asc' ? 1 : -1
+      if (aValue !== undefined && bValue !== undefined) {
+        if (aValue < bValue) return sortDirection === 'asc' ? -1 : 1
+        if (aValue > bValue) return sortDirection === 'asc' ? 1 : -1
+      }
       return 0
     })
 
@@ -151,7 +153,7 @@ const ViewExportTickets = ({ tickets, clients }: ViewExportTicketsProps) => {
       const csvContent = csvRows.join('\n')
       const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' })
       const link = document.createElement('a')
-      
+
       if (link.download !== undefined) {
         const url = URL.createObjectURL(blob)
         link.setAttribute('href', url)
@@ -197,7 +199,7 @@ const ViewExportTickets = ({ tickets, clients }: ViewExportTicketsProps) => {
       <div className="section-header">
         <h2>View & Export Ticket Data</h2>
         <div className="header-actions">
-          <button 
+          <button
             className="btn btn-success"
             onClick={exportToCSV}
             disabled={exporting || filteredAndSortedTickets.length === 0}
@@ -274,7 +276,7 @@ const ViewExportTickets = ({ tickets, clients }: ViewExportTicketsProps) => {
             />
           </div>
         </div>
-        
+
         <div className="filter-actions">
           <button className="btn btn-secondary" onClick={clearFilters}>
             Clear All Filters
@@ -290,8 +292,8 @@ const ViewExportTickets = ({ tickets, clients }: ViewExportTicketsProps) => {
         <div className="pagination-controls">
           <label>
             Show:
-            <select 
-              value={itemsPerPage} 
+            <select
+              value={itemsPerPage}
               onChange={(e) => {
                 setItemsPerPage(Number(e.target.value))
                 setCurrentPage(1)
@@ -350,7 +352,7 @@ const ViewExportTickets = ({ tickets, clients }: ViewExportTicketsProps) => {
                 <td>{ticket.quantity} {ticket.unit}</td>
                 <td>{formatCurrency(ticket.price)}</td>
                 <td>
-                  <span 
+                  <span
                     className="status"
                     style={{ backgroundColor: getStatusColor(ticket.status), color: 'white' }}
                   >
@@ -372,14 +374,14 @@ const ViewExportTickets = ({ tickets, clients }: ViewExportTicketsProps) => {
       {/* Pagination */}
       {totalPages > 1 && (
         <div className="pagination">
-          <button 
+          <button
             className="page-button"
             onClick={() => setCurrentPage(Math.max(1, currentPage - 1))}
             disabled={currentPage === 1}
           >
             Previous
           </button>
-          
+
           <div className="page-numbers">
             {Array.from({ length: Math.min(5, totalPages) }, (_, i) => {
               let pageNum
@@ -392,7 +394,7 @@ const ViewExportTickets = ({ tickets, clients }: ViewExportTicketsProps) => {
               } else {
                 pageNum = currentPage - 2 + i
               }
-              
+
               return (
                 <button
                   key={pageNum}
@@ -404,8 +406,8 @@ const ViewExportTickets = ({ tickets, clients }: ViewExportTicketsProps) => {
               )
             })}
           </div>
-          
-          <button 
+
+          <button
             className="page-button"
             onClick={() => setCurrentPage(Math.min(totalPages, currentPage + 1))}
             disabled={currentPage === totalPages}

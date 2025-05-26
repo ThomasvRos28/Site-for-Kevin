@@ -101,7 +101,6 @@ const MTOFlagship = () => {
   const [tickets, setTickets] = useState(mockTickets)
   const [clients] = useState(mockClients)
   const [companyLogo, setCompanyLogo] = useState<string | null>(null)
-  const [companyName, setCompanyName] = useState('MaterialFlow Dashboard')
 
   // Load company settings
   useEffect(() => {
@@ -111,9 +110,6 @@ const MTOFlagship = () => {
         const settings = JSON.parse(savedSettings)
         if (settings.logoPreview) {
           setCompanyLogo(settings.logoPreview)
-        }
-        if (settings.companyName) {
-          setCompanyName(settings.companyName)
         }
       } catch (error) {
         console.error('Error loading company settings:', error)
