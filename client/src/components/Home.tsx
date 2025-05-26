@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react'
 import './Home.css'
 
 const Home = () => {
+  console.log('Home component rendering...')
   const navigate = useNavigate()
   const [companyLogo, setCompanyLogo] = useState<string | null>(null)
   const [companyName, setCompanyName] = useState('MaterialFlow Dashboard')
