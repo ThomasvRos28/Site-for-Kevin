@@ -1,0 +1,160 @@
+.manual-ticket-form {
+  background: #fafafa;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  padding: 1.5rem;
+  max-width: 600px;
+  width: 100%;
+}
+
+.manual-ticket-form .form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.manual-ticket-form .form-group {
+  margin-bottom: 1.5rem;
+}
+
+.manual-ticket-form label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+  color: #333;
+  font-size: 0.9rem;
+}
+
+.manual-ticket-form input,
+.manual-ticket-form select,
+.manual-ticket-form textarea {
+  width: 100%;
+  padding: 0.75rem;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  font-size: 0.9rem;
+  transition: border-color 0.3s ease;
+  box-sizing: border-box;
+}
+
+.manual-ticket-form input:focus,
+.manual-ticket-form select:focus,
+.manual-ticket-form textarea:focus {
+  outline: none;
+  border-color: #2196F3;
+  box-shadow: 0 0 0 2px rgba(33, 150, 243, 0.1);
+}
+
+.manual-ticket-form textarea {
+  resize: vertical;
+  min-height: 100px;
+  font-family: inherit;
+}
+
+.manual-ticket-form .file-input {
+  padding: 0.5rem;
+  border: 2px dashed #ddd;
+  border-radius: 6px;
+  background: #f9f9f9;
+  cursor: pointer;
+  transition: border-color 0.3s ease;
+}
+
+.manual-ticket-form .file-input:hover {
+  border-color: #2196F3;
+  background: #f0f8ff;
+}
+
+.manual-ticket-form .file-info {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 0.5rem;
+  padding: 0.5rem;
+  background: #f0f8ff;
+  border-radius: 6px;
+  border: 1px solid #2196F3;
+}
+
+.manual-ticket-form .file-name {
+  font-weight: 500;
+  color: #1976D2;
+}
+
+.manual-ticket-form .file-size {
+  font-size: 0.85rem;
+  color: #666;
+}
+
+.submit-button {
+  width: 100%;
+  padding: 0.875rem 1.5rem;
+  background: #2196F3;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.submit-button:hover:not(:disabled) {
+  background: #1976D2;
+  transform: translateY(-1px);
+}
+
+.submit-button:disabled {
+  background: #ccc;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.message {
+  margin-top: 1rem;
+  padding: 0.75rem;
+  border-radius: 6px;
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+.message.success {
+  background: #e8f5e8;
+  color: #2e7d32;
+  border: 1px solid #c8e6c9;
+}
+
+.message.error {
+  background: #ffebee;
+  color: #c62828;
+  border: 1px solid #ffcdd2;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .manual-ticket-form {
+    padding: 1rem;
+    max-width: 100%;
+  }
+
+  .manual-ticket-form .form-row {
+    grid-template-columns: 1fr;
+    gap: 0;
+  }
+
+  .manual-ticket-form .form-group {
+    margin-bottom: 1rem;
+  }
+
+  .manual-ticket-form input,
+  .manual-ticket-form select,
+  .manual-ticket-form textarea {
+    padding: 0.625rem;
+  }
+
+  .submit-button {
+    padding: 0.75rem 1rem;
+    font-size: 0.9rem;
+  }
+}
