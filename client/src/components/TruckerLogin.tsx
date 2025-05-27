@@ -64,26 +64,50 @@ const TruckerLogin = () => {
     setLoading(true)
     setError('')
 
+    console.log('Attempting trucker login with:', {
+      driverName: formData.driverName.trim(),
+      driverCode: formData.driverCode.trim()
+    })
+
     try {
+      console.log('Making request to:', 'http://localhost:5000/api/trucker/login')
       const response = await axios.post('http://localhost:5000/api/trucker/login', {
         driverName: formData.driverName.trim(),
         driverCode: formData.driverCode.trim()
       })
 
+      console.log('Login response:', response.data)
+
       if (response.data.success) {
         // Store trucker info in localStorage
-        localStorage.setItem('truckerAuth', JSON.stringify({
+        const authData = {
           driverName: response.data.driver.name,
           driverCode: response.data.driver.code,
           loginTime: new Date().toISOString()
-        }))
+        }
+        console.log('Storing auth data:', authData)
+        localStorage.setItem('truckerAuth', JSON.stringify(authData))
 
         // Navigate to trucker stats
+        console.log('Navigating to trucker stats...')
         navigate('/trucker-stats')
+      } else {
+        console.error('Login failed - success was false')
+        setError('Login failed. Please check your credentials.')
       }
     } catch (error: any) {
-      console.error('Login error:', error)
-      setError(error.response?.data?.error || 'Login failed. Please try again.')
+      console.error('Login error details:', {
+        message: error.message,
+        response: error.response?.data,
+        status: error.response?.status,
+        url: error.config?.url
+      })
+
+      if (error.code === 'ECONNREFUSED' || error.message.includes('Network Error')) {
+        setError('Cannot connect to server. Please make sure the server is running on port 5000.')
+      } else {
+        setError(error.response?.data?.error || 'Login failed. Please try again.')
+      }
     } finally {
       setLoading(false)
     }

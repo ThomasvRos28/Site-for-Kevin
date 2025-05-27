@@ -1,4 +1,6 @@
+import { useState } from 'react'
 import './TicketList.css'
+import TicketDetailModal from './TicketDetailModal'
 
 interface Ticket {
   id: string
@@ -45,6 +47,7 @@ const TicketList = ({
   totalPages,
   onPageChange
 }: TicketListProps) => {
+  const [selectedTicketForDetail, setSelectedTicketForDetail] = useState<Ticket | null>(null)
   const formatDate = (dateString: string) => {
     return new Date(dateString).toLocaleDateString('en-US', {
       year: 'numeric',
@@ -125,7 +128,11 @@ const TicketList = ({
                   </div>
                 </div>
 
-                <div className="ticket-content">
+                <div
+                  className="ticket-content clickable-content"
+                  onClick={() => setSelectedTicketForDetail(ticket)}
+                  title="Click to view detailed information"
+                >
                   <h3 className="ticket-title">
                     {ticket.fileName}
                     {ticket.isManualEntry && <span className="manual-badge">Manual</span>}
@@ -227,6 +234,16 @@ const TicketList = ({
             </div>
           )}
         </>
+      )}
+
+      {/* Ticket Detail Modal */}
+      {selectedTicketForDetail && (
+        <TicketDetailModal
+          ticket={selectedTicketForDetail}
+          onClose={() => setSelectedTicketForDetail(null)}
+          onEdit={onEditTicket}
+          onDelete={onDeleteTicket}
+        />
       )}
     </div>
   )

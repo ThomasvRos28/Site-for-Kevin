@@ -1,46 +1,100 @@
 /* Mobile-first design */
 .manual-ticket-form {
-  background: #fafafa;
-  border: 1px solid #e0e0e0;
-  border-radius: 8px;
-  padding: 1rem;
+  background: white;
+  border: 2px solid #e0e0e0;
+  border-radius: 12px;
+  padding: 1.5rem;
   width: 100%;
   max-width: 100%;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Signature input integration */
+.manual-ticket-form .signature-input {
+  margin-top: 0.5rem;
+}
+
+.manual-ticket-form .signature-input .signature-label {
+  font-weight: 600;
+  color: #333;
+  font-size: 0.9rem;
+  margin-bottom: 0.5rem;
+}
+
+.manual-ticket-form::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, #2196F3, #64B5F6, #2196F3);
+  background-size: 200% 100%;
+  animation: shimmer 3s ease-in-out infinite;
+}
+
+@keyframes shimmer {
+  0%, 100% { background-position: 200% 0; }
+  50% { background-position: -200% 0; }
 }
 
 .manual-ticket-form .form-row {
   display: flex;
   flex-direction: column;
   gap: 0;
-  margin-bottom: 1rem;
+  margin-bottom: 0.25rem;
 }
 
 .manual-ticket-form .form-group {
-  margin-bottom: 1rem;
+  margin-bottom: 0.25rem;
 }
 
 .manual-ticket-form label {
   display: block;
-  margin-bottom: 0.75rem;
+  margin-bottom: 0.3rem;
   font-weight: 600;
-  color: #333;
+  color: #2c3e50;
   font-size: 1rem;
   line-height: 1.4;
+  position: relative;
 }
 
-/* Mobile-first: Large touch targets */
+.manual-ticket-form label::after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  width: 30px;
+  height: 2px;
+  background: linear-gradient(90deg, #2196F3, #64B5F6);
+  border-radius: 1px;
+}
+
+/* Mobile-first: Large touch targets with visible borders */
 .manual-ticket-form input,
 .manual-ticket-form select,
 .manual-ticket-form textarea {
   width: 100%;
   padding: 1rem;
-  border: 2px solid #ddd;
+  border: 2px solid #bbb;
   border-radius: 8px;
   font-size: 1rem;
   line-height: 1.5;
-  transition: border-color 0.3s ease;
+  transition: all 0.3s ease;
   box-sizing: border-box;
   min-height: 48px; /* Minimum touch target size */
+  background: white;
+  color: #333;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.manual-ticket-form input:hover,
+.manual-ticket-form select:hover,
+.manual-ticket-form textarea:hover {
+  border-color: #888;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
 }
 
 .manual-ticket-form input:focus,
@@ -48,7 +102,32 @@
 .manual-ticket-form textarea:focus {
   outline: none;
   border-color: #2196F3;
-  box-shadow: 0 0 0 2px rgba(33, 150, 243, 0.1);
+  box-shadow: 0 0 0 3px rgba(33, 150, 243, 0.2), 0 2px 8px rgba(0, 0, 0, 0.15);
+  background: #fafafa;
+}
+
+/* Placeholder styling */
+.manual-ticket-form input::placeholder,
+.manual-ticket-form textarea::placeholder {
+  color: #999;
+  font-style: italic;
+  opacity: 1;
+}
+
+/* Required field indicator */
+.manual-ticket-form label[data-required="true"]::before {
+  content: '* ';
+  color: #e74c3c;
+  font-weight: bold;
+  margin-right: 2px;
+}
+
+/* Invalid field styling */
+.manual-ticket-form input:invalid:not(:placeholder-shown),
+.manual-ticket-form select:invalid:not(:placeholder-shown),
+.manual-ticket-form textarea:invalid:not(:placeholder-shown) {
+  border-color: #e74c3c;
+  box-shadow: 0 0 0 2px rgba(231, 76, 60, 0.1);
 }
 
 .manual-ticket-form textarea {
@@ -59,17 +138,24 @@
 
 .manual-ticket-form .file-input {
   padding: 1rem;
-  border: 2px dashed #ddd;
+  border: 2px dashed #999;
   border-radius: 8px;
   background: #f9f9f9;
   cursor: pointer;
-  transition: border-color 0.3s ease;
+  transition: all 0.3s ease;
   min-height: 48px;
+  text-align: center;
+  color: #555;
+  font-weight: 500;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
 }
 
 .manual-ticket-form .file-input:hover {
   border-color: #2196F3;
   background: #f0f8ff;
+  color: #2196F3;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+  transform: translateY(-1px);
 }
 
 .manual-ticket-form .file-info {
@@ -151,16 +237,16 @@
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 1rem;
-    margin-bottom: 1.5rem;
+    margin-bottom: 0.4rem;
   }
 
   .manual-ticket-form .form-group {
-    margin-bottom: 1.5rem;
+    margin-bottom: 0.4rem;
   }
 
   .manual-ticket-form label {
     font-size: 0.9rem;
-    margin-bottom: 0.5rem;
+    margin-bottom: 0.25rem;
   }
 
   .manual-ticket-form input,

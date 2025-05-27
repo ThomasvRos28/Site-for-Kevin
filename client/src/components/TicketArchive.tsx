@@ -1,6 +1,9 @@
 import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import './TicketArchive.css'
+import TicketDetailModal from './TicketDetailModal'
+import ExportButton from './ExportButton'
+import ReportingTools from './ReportingTools'
 
 interface Ticket {
   id: string
@@ -40,6 +43,8 @@ const TicketArchive = () => {
   const [currentPage, setCurrentPage] = useState(1)
   const [totalPages, setTotalPages] = useState(1)
   const [totalCount, setTotalCount] = useState(0)
+  const [selectedTicketForDetail, setSelectedTicketForDetail] = useState<Ticket | null>(null)
+  const [showReporting, setShowReporting] = useState(false)
 
   // Filter states
   const [filters, setFilters] = useState({
@@ -207,10 +212,25 @@ const TicketArchive = () => {
 
         {/* Results Summary */}
         <section className="results-summary">
-          <p>
-            Showing {tickets.length} of {totalCount} tickets
-            {(filters.clientId || filters.startDate || filters.endDate) && ' (filtered)'}
-          </p>
+          <div className="summary-content">
+            <p>
+              Showing {tickets.length} of {totalCount} tickets
+              {(filters.clientId || filters.startDate || filters.endDate) && ' (filtered)'}
+            </p>
+            <div className="summary-actions">
+              {tickets.length > 0 && (
+                <>
+                  <button
+                    className="reporting-button"
+                    onClick={() => setShowReporting(!showReporting)}
+                  >
+                    📊 {showReporting ? 'Hide Reports' : 'Advanced Reports'}
+                  </button>
+                  <ExportButton tickets={tickets} />
+                </>
+              )}
+            </div>
+          </div>
         </section>
 
         {/* Tickets Table */}
@@ -240,7 +260,12 @@ const TicketArchive = () => {
                 </thead>
                 <tbody>
                   {tickets.map(ticket => (
-                    <tr key={ticket.id}>
+                    <tr
+                      key={ticket.id}
+                      className="clickable-row"
+                      onClick={() => setSelectedTicketForDetail(ticket)}
+                      title="Click to view detailed information"
+                    >
                       <td>{formatDate(ticket.date || ticket.uploadDate)}</td>
                       <td className="ticket-number">
                         {ticket.ticketNumber || ticket.fileName}
@@ -321,7 +346,22 @@ const TicketArchive = () => {
             </div>
           </section>
         )}
+
+        {/* Reporting Section */}
+        {showReporting && (
+          <section className="reporting-section">
+            <ReportingTools tickets={tickets} clients={clients} />
+          </section>
+        )}
       </main>
+
+      {/* Ticket Detail Modal */}
+      {selectedTicketForDetail && (
+        <TicketDetailModal
+          ticket={selectedTicketForDetail}
+          onClose={() => setSelectedTicketForDetail(null)}
+        />
+      )}
     </div>
   )
 }

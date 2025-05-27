@@ -75,6 +75,40 @@
   margin-bottom: 1rem;
 }
 
+.clickable-content {
+  cursor: pointer;
+  transition: background-color 0.2s ease, transform 0.1s ease;
+  border-radius: 8px;
+  margin: -8px;
+  padding: 24px !important;
+  position: relative;
+}
+
+.clickable-content:hover {
+  background-color: rgba(102, 126, 234, 0.05);
+  transform: translateY(-1px);
+}
+
+.clickable-content::after {
+  content: "👁️ Click to view details";
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  background: rgba(102, 126, 234, 0.1);
+  color: #667eea;
+  padding: 4px 8px;
+  border-radius: 12px;
+  font-size: 0.7rem;
+  font-weight: 500;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+  pointer-events: none;
+}
+
+.clickable-content:hover::after {
+  opacity: 1;
+}
+
 .ticket-title {
   font-size: 1.1rem;
   font-weight: 600;

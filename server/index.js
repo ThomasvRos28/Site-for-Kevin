@@ -455,9 +455,11 @@ app.get('/api/tickets/archive', async (req, res) => {
 // POST /api/trucker/login - Trucker login
 app.post('/api/trucker/login', async (req, res) => {
   try {
+    console.log('Trucker login request received:', req.body);
     const { driverName, driverCode } = req.body;
 
     if (!driverName || !driverCode) {
+      console.log('Missing driver name or code');
       return res.status(400).json({ error: 'Driver name and code are required' });
     }
 
@@ -466,9 +468,12 @@ app.post('/api/trucker/login', async (req, res) => {
     const normalizedName = driverName.trim().toLowerCase();
     const normalizedCode = driverCode.trim().toLowerCase();
 
+    console.log('Normalized credentials:', { normalizedName, normalizedCode });
+
     // Simple validation: code should be at least 3 characters
     if (normalizedCode.length < 3) {
-      return res.status(401).json({ error: 'Invalid driver code' });
+      console.log('Driver code too short:', normalizedCode.length);
+      return res.status(401).json({ error: 'Invalid driver code - must be at least 3 characters' });
     }
 
     // Check if driver has any tickets in the system
@@ -477,14 +482,19 @@ app.post('/api/trucker/login', async (req, res) => {
       ticket.driverName && ticket.driverName.toLowerCase().includes(normalizedName)
     );
 
-    res.json({
+    console.log(`Found ${driverTickets.length} tickets for driver ${normalizedName}`);
+
+    const response = {
       success: true,
       driver: {
         name: driverName.trim(),
         code: driverCode.trim()
       },
       hasTickets: driverTickets.length > 0
-    });
+    };
+
+    console.log('Sending login response:', response);
+    res.json(response);
   } catch (error) {
     console.error('Trucker login error:', error);
     res.status(500).json({ error: 'Login failed' });

@@ -36,16 +36,39 @@ const Home = () => {
     localStorage.setItem('developerMode', JSON.stringify(newMode))
   }
 
-  // Control body overflow only for home page
+  // Control body overflow only for home page on desktop
   useEffect(() => {
-    // Prevent scrolling on home page
-    document.body.style.overflow = 'hidden'
-    document.documentElement.style.overflow = 'hidden'
+    const isMobile = window.innerWidth <= 768
+
+    if (!isMobile) {
+      // Only prevent scrolling on desktop/tablet
+      document.body.style.overflow = 'hidden'
+      document.documentElement.style.overflow = 'hidden'
+    } else {
+      // Allow scrolling on mobile
+      document.body.style.overflow = 'auto'
+      document.documentElement.style.overflow = 'auto'
+    }
+
+    // Handle window resize
+    const handleResize = () => {
+      const isMobileNow = window.innerWidth <= 768
+      if (isMobileNow) {
+        document.body.style.overflow = 'auto'
+        document.documentElement.style.overflow = 'auto'
+      } else {
+        document.body.style.overflow = 'hidden'
+        document.documentElement.style.overflow = 'hidden'
+      }
+    }
+
+    window.addEventListener('resize', handleResize)
 
     // Cleanup: restore scrolling when leaving home page
     return () => {
       document.body.style.overflow = 'auto'
       document.documentElement.style.overflow = 'auto'
+      window.removeEventListener('resize', handleResize)
     }
   }, [])
 

@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react'
+import SignatureInput from './SignatureInput'
 import './ManualTicketForm.css'
 
 interface Client {
@@ -31,6 +32,7 @@ const ManualTicketForm = ({ onTicketCreated }: ManualTicketFormProps) => {
   })
 
   const [selectedImage, setSelectedImage] = useState<File | null>(null)
+  const [signatureData, setSignatureData] = useState<string | null>(null)
 
   useEffect(() => {
     fetchClients()
@@ -61,6 +63,10 @@ const ManualTicketForm = ({ onTicketCreated }: ManualTicketFormProps) => {
     if (file) {
       setSelectedImage(file)
     }
+  }
+
+  const handleSignatureSubmit = (signature: string) => {
+    setSignatureData(signature)
   }
 
   const materialTypes = [
@@ -143,6 +149,11 @@ const ManualTicketForm = ({ onTicketCreated }: ManualTicketFormProps) => {
         submitData.append('ticketImage', selectedImage)
       }
 
+      // Add signature if provided
+      if (signatureData) {
+        submitData.append('signatureData', signatureData)
+      }
+
       const response = await fetch('http://localhost:5000/api/tickets/manual', {
         method: 'POST',
         body: submitData
@@ -163,6 +174,7 @@ const ManualTicketForm = ({ onTicketCreated }: ManualTicketFormProps) => {
           status: 'pending'
         })
         setSelectedImage(null)
+        setSignatureData(null)
         // Reset file input
         const fileInput = document.getElementById('ticket-image') as HTMLInputElement
         if (fileInput) fileInput.value = ''
@@ -321,6 +333,14 @@ const ManualTicketForm = ({ onTicketCreated }: ManualTicketFormProps) => {
             </span>
           </div>
         )}
+      </div>
+
+      <div className="form-group">
+        <SignatureInput
+          onSubmit={handleSignatureSubmit}
+          label="Driver Signature"
+          placeholder="Add driver signature"
+        />
       </div>
 
       <div className="form-group">

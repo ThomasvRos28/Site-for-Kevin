@@ -5,6 +5,7 @@ import TicketList from './TicketList'
 import EditTicketForm from './EditTicketForm'
 import ExportButton from './ExportButton'
 import SendInvoicesButton from './SendInvoicesButton'
+import ReportingTools from './ReportingTools'
 import './MaterialTicketing.css'
 
 interface Ticket {
@@ -39,6 +40,8 @@ const MaterialTicketing = () => {
   const [totalPages, setTotalPages] = useState(1)
   const [loading, setLoading] = useState(false)
   const [companyLogo, setCompanyLogo] = useState<string | null>(null)
+  const [showReporting, setShowReporting] = useState(false)
+  const [clients, setClients] = useState<any[]>([])
 
   // Load company settings
   useEffect(() => {
@@ -72,8 +75,21 @@ const MaterialTicketing = () => {
     }
   }
 
+  const fetchClients = async () => {
+    try {
+      const response = await fetch('http://localhost:5000/api/clients')
+      if (response.ok) {
+        const data = await response.json()
+        setClients(data)
+      }
+    } catch (error) {
+      console.error('Error fetching clients:', error)
+    }
+  }
+
   useEffect(() => {
     fetchTickets()
+    fetchClients()
   }, [])
 
   const handleTicketUploaded = () => {
@@ -168,6 +184,12 @@ const MaterialTicketing = () => {
               >
                 📋 View Archive
               </button>
+              <button
+                className="reporting-button"
+                onClick={() => setShowReporting(!showReporting)}
+              >
+                📊 {showReporting ? 'Hide Reports' : 'Advanced Reports'}
+              </button>
               <ExportButton tickets={tickets} />
               <SendInvoicesButton
                 selectedTickets={selectedTickets}
@@ -199,6 +221,13 @@ const MaterialTicketing = () => {
             )}
           </section>
         </div>
+
+        {/* Reporting Section */}
+        {showReporting && (
+          <section className="reporting-section">
+            <ReportingTools tickets={tickets} clients={clients} />
+          </section>
+        )}
       </main>
 
       {/* Edit Modal */}
