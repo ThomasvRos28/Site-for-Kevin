@@ -2,9 +2,13 @@ import i18n from 'i18next';
 import { initReactI18next } from 'react-i18next';
 import LanguageDetector from 'i18next-browser-languagedetector';
 
+// Import translations directly
+import enTranslation from './locales/en/translation.json';
+import esTranslation from './locales/es/translation.json';
+
 const resources = {
   en: {
-    translation: {
+    translation: enTranslation || {
       common: {
         loading: 'Loading...',
         submit: 'Submit',
@@ -127,7 +131,7 @@ const resources = {
     }
   },
   es: {
-    translation: {
+    translation: esTranslation || {
       common: {
         loading: 'Cargando...',
         submit: 'Enviar',

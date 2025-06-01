@@ -19,6 +19,41 @@
     "unit": "Unidad",
     "notes": "Notas"
   },
+  "tickets": {
+    "title": "Boleto de Material",
+    "backup": "Copia de Respaldo Física",
+    "print": "Imprimir Boleto",
+    "ticketNumber": "Número de Boleto",
+    "poNumber": "Orden de Compra",
+    "materialType": "Tipo de Material",
+    "quantity": "Cantidad",
+    "date": "Fecha y Hora",
+    "location": "Ubicación",
+    "driverSignature": "Firma del Conductor",
+    "status": {
+      "open": "Abierto",
+      "completed": "Completado",
+      "pending": "Abierto",
+      "approved": "Abierto",
+      "rejected": "Abierto",
+      "expired": "Abierto",
+      "in_progress": "Abierto",
+      "available": "Abierto",
+      "accepted": "Abierto"
+    }
+  },
+  "navigation": {
+    "administration": "Administración",
+    "adminDesc": "Administrar configuración del sistema y cuentas de usuario",
+    "materialTicketing": "Boletos de Material",
+    "ticketingDesc": "Cargar, administrar y procesar boletos de material",
+    "purchaseOrders": "Órdenes de Compra",
+    "poDesc": "Crear y administrar órdenes de compra",
+    "mtoFlagship": "MTO Flagship",
+    "mtoDesc": "Acceder a características y herramientas principales",
+    "ticketArchive": "Archivo de Boletos",
+    "archiveDesc": "Ver y buscar boletos archivados"
+  },
   "po": {
     "create": "Crear Orden de Compra",
     "edit": "Editar Orden de Compra",

@@ -14,6 +14,11 @@ import TicketHistoryPage from './components/TicketHistoryPage'
 import LanguageSwitcher from './components/LanguageSwitcher'
 import PurchaseOrderList from './components/PurchaseOrderList'
 import PurchaseOrderForm from './components/PurchaseOrderForm'
+import AvailableJobsList from './components/AvailableJobsList'
+import TruckerJobAcceptance from './components/TruckerJobAcceptance'
+import TruckerActiveJob from './components/TruckerActiveJob'
+import TruckerJobCompletion from './components/TruckerJobCompletion'
+// AdminDashboard removed as it duplicates PurchaseOrderList functionality
 import { PurchaseOrderProvider } from './contexts/PurchaseOrderContext'
 import Login from './components/Login'
 import Register from './components/Register'
@@ -88,8 +93,29 @@ function App() {
                     <TruckerStats />
                   </TruckerRoute>
                 } />
+                <Route path="/trucker-available-jobs" element={
+                  <TruckerRoute>
+                    <AvailableJobsList />
+                  </TruckerRoute>
+                } />
+                <Route path="/trucker-job-acceptance/:jobId" element={
+                  <TruckerRoute>
+                    <TruckerJobAcceptance />
+                  </TruckerRoute>
+                } />
+                <Route path="/trucker-active-job" element={
+                  <TruckerRoute>
+                    <TruckerActiveJob />
+                  </TruckerRoute>
+                } />
+                <Route path="/trucker-job-completion/:jobId" element={
+                  <TruckerRoute>
+                    <TruckerJobCompletion />
+                  </TruckerRoute>
+                } />
                 <Route path="/login" element={<Login />} />
                 <Route path="/register" element={<Register />} />
+                {/* AdminDashboard route removed as it duplicates PurchaseOrderList functionality */}
                 <Route
                   path="/purchase-orders"
                   element={

@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { useTranslation } from 'react-i18next'
 import './TicketDetailModal.css'
 
 interface Ticket {
@@ -32,6 +33,7 @@ interface TicketDetailModalProps {
 }
 
 const TicketDetailModal = ({ ticket, onClose, onEdit, onDelete }: TicketDetailModalProps) => {
+  const { t } = useTranslation();
   const [showDeleteConfirm, setShowDeleteConfirm] = useState(false)
 
   const formatFileSize = (bytes: number): string => {
@@ -105,16 +107,16 @@ const TicketDetailModal = ({ ticket, onClose, onEdit, onDelete }: TicketDetailMo
           <div className="detail-section">
             <h3>Status Information</h3>
             <div className="detail-grid">
-              <div className="detail-item clickable" onClick={() => copyToClipboard(ticket.status, 'Status')}>
+              <div className="detail-item clickable" onClick={() => ticket.status && copyToClipboard(ticket.status, 'Status')}>
                 <span className="label">Status:</span>
                 <span
                   className="value status-value"
                   style={{ backgroundColor: getStatusColor(ticket.status) }}
                 >
-                  {ticket.status}
+                  {t(`tickets.status.${ticket.status}`)}
                 </span>
               </div>
-              <div className="detail-item clickable" onClick={() => copyToClipboard(ticket.id, 'Ticket ID')}>
+              <div className="detail-item clickable" onClick={() => ticket.id && copyToClipboard(ticket.id, 'Ticket ID')}>
                 <span className="label">Ticket ID:</span>
                 <span className="value">{ticket.id}</span>
               </div>
@@ -125,20 +127,20 @@ const TicketDetailModal = ({ ticket, onClose, onEdit, onDelete }: TicketDetailMo
           <div className="detail-section">
             <h3>Basic Information</h3>
             <div className="detail-grid">
-              <div className="detail-item clickable" onClick={() => copyToClipboard(ticket.fileName, 'File Name')}>
+              <div className="detail-item clickable" onClick={() => ticket.fileName && copyToClipboard(ticket.fileName, 'File Name')}>
                 <span className="label">File Name:</span>
                 <span className="value">{ticket.fileName}</span>
               </div>
-              <div className="detail-item clickable" onClick={() => copyToClipboard(ticket.clientName, 'Client Name')}>
+              <div className="detail-item clickable" onClick={() => ticket.clientName && copyToClipboard(ticket.clientName, 'Client Name')}>
                 <span className="label">Client:</span>
                 <span className="value">{ticket.clientName}</span>
               </div>
-              <div className="detail-item clickable" onClick={() => copyToClipboard(formatDate(ticket.uploadDate), 'Upload Date')}>
+              <div className="detail-item clickable" onClick={() => ticket.uploadDate && copyToClipboard(formatDate(ticket.uploadDate), 'Upload Date')}>
                 <span className="label">Upload Date:</span>
                 <span className="value">{formatDate(ticket.uploadDate)}</span>
               </div>
               {ticket.fileSize > 0 && (
-                <div className="detail-item clickable" onClick={() => copyToClipboard(formatFileSize(ticket.fileSize), 'File Size')}>
+                <div className="detail-item clickable" onClick={() => copyToClipboard(formatFileSize(ticket.fileSize || 0), 'File Size')}>
                   <span className="label">File Size:</span>
                   <span className="value">{formatFileSize(ticket.fileSize)}</span>
                 </div>
@@ -152,13 +154,13 @@ const TicketDetailModal = ({ ticket, onClose, onEdit, onDelete }: TicketDetailMo
               <h3>Ticket Details</h3>
               <div className="detail-grid">
                 {ticket.date && (
-                  <div className="detail-item clickable" onClick={() => copyToClipboard(ticket.date, 'Date')}>
+                  <div className="detail-item clickable" onClick={() => ticket.date && copyToClipboard(ticket.date, 'Date')}>
                     <span className="label">Date:</span>
                     <span className="value">{new Date(ticket.date).toLocaleDateString()}</span>
                   </div>
                 )}
                 {ticket.ticketNumber && (
-                  <div className="detail-item clickable" onClick={() => copyToClipboard(ticket.ticketNumber, 'Ticket Number')}>
+                  <div className="detail-item clickable" onClick={() => ticket.ticketNumber && copyToClipboard(ticket.ticketNumber, 'Ticket Number')}>
                     <span className="label">Ticket Number:</span>
                     <span className="value ticket-number">{ticket.ticketNumber}</span>
                   </div>
@@ -170,19 +172,19 @@ const TicketDetailModal = ({ ticket, onClose, onEdit, onDelete }: TicketDetailMo
                   </div>
                 )}
                 {ticket.materialType && (
-                  <div className="detail-item clickable" onClick={() => copyToClipboard(ticket.materialType, 'Material Type')}>
+                  <div className="detail-item clickable" onClick={() => ticket.materialType && copyToClipboard(ticket.materialType, 'Material Type')}>
                     <span className="label">Material Type:</span>
                     <span className="value material-type">{ticket.materialType}</span>
                   </div>
                 )}
                 {ticket.loadQuantity && (
-                  <div className="detail-item clickable" onClick={() => copyToClipboard(`${ticket.loadQuantity}${ticket.loadUnit ? ` ${ticket.loadUnit}` : ''}`, 'Load Quantity')}>
+                  <div className="detail-item clickable" onClick={() => ticket.loadQuantity && copyToClipboard(`${ticket.loadQuantity}${ticket.loadUnit ? ` ${ticket.loadUnit}` : ''}`, 'Load Quantity')}>
                     <span className="label">Load Quantity:</span>
                     <span className="value quantity">{ticket.loadQuantity}{ticket.loadUnit && ` ${ticket.loadUnit}`}</span>
                   </div>
                 )}
                 {ticket.driverName && (
-                  <div className="detail-item clickable" onClick={() => copyToClipboard(ticket.driverName, 'Driver Name')}>
+                  <div className="detail-item clickable" onClick={() => ticket.driverName && copyToClipboard(ticket.driverName, 'Driver Name')}>
                     <span className="label">Driver Name:</span>
                     <span className="value driver-name">{ticket.driverName}</span>
                   </div>
@@ -195,7 +197,7 @@ const TicketDetailModal = ({ ticket, onClose, onEdit, onDelete }: TicketDetailMo
           {ticket.description && (
             <div className="detail-section">
               <h3>Description/Notes</h3>
-              <div className="description-content clickable" onClick={() => copyToClipboard(ticket.description, 'Description')}>
+              <div className="detail-item clickable" onClick={() => ticket.description && copyToClipboard(ticket.description, 'Description')}>
                 <p>{ticket.description}</p>
               </div>
             </div>

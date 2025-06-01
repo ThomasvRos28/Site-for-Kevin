@@ -81,41 +81,47 @@ const PurchaseOrderList: React.FC = () => {
   };
 
   const filteredAndSortedPOs = useMemo(() => {
-    let filtered = [...purchaseOrders];
+    let filtered = purchaseOrders;
 
-    // Apply search filter
     if (searchQuery) {
       const query = searchQuery.toLowerCase();
-      filtered = filtered.filter(po => 
-        po.jobDetails.toLowerCase().includes(query) ||
-        po.clientId.name.toLowerCase().includes(query)
-      );
+      filtered = filtered.filter(po => {
+        const jobDetails = po.jobDetails?.toLowerCase() || '';
+        const clientName = po.clientId?.name?.toLowerCase() || '';
+        const haulerName = po.haulerId?.name?.toLowerCase() || '';
+        return jobDetails.includes(query) || clientName.includes(query) || haulerName.includes(query);
+      });
     }
 
-    // Apply status filter
     if (statusFilter !== 'all') {
       filtered = filtered.filter(po => po.status === statusFilter);
     }
 
-    // Sort pending POs to the top
+    // Normalize statuses for sorting
     return filtered.sort((a, b) => {
-      if (a.status === 'pending' && b.status !== 'pending') return -1;
-      if (a.status !== 'pending' && b.status === 'pending') return 1;
+      const aStatus = ['pending', 'approved', 'in_progress', 'available', 'accepted'].includes(a.status) ? 'open' : a.status;
+      const bStatus = ['pending', 'approved', 'in_progress', 'available', 'accepted'].includes(b.status) ? 'open' : b.status;
+      
+      if (aStatus === 'open' && bStatus !== 'open') return -1;
+      if (aStatus !== 'open' && bStatus === 'open') return 1;
       return new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime();
     });
   }, [purchaseOrders, searchQuery, statusFilter]);
 
   const getStatusBadge = (status: string) => {
     const variants = {
-      pending: 'warning',
-      approved: 'success',
-      rejected: 'destructive',
-      expired: 'secondary'
+      open: 'success',
+      completed: 'secondary'
     } as const;
 
+    // Default to 'open' if status is one of the old statuses
+    const normalizedStatus = ['pending', 'approved', 'in_progress', 'available', 'accepted'].includes(status) 
+      ? 'open' 
+      : (status === 'completed' ? 'completed' : 'open');
+
     return (
-      <Badge variant={variants[status as keyof typeof variants]}>
-        {t(`po.status.${status}`)}
+      <Badge variant={variants[normalizedStatus as keyof typeof variants]}>
+        {normalizedStatus === 'open' ? t('po.status.open') : t('po.status.completed')}
       </Badge>
     );
   };
@@ -202,10 +208,8 @@ const PurchaseOrderList: React.FC = () => {
             </SelectTrigger>
             <SelectContent>
               <SelectItem value="all">All Statuses</SelectItem>
-              <SelectItem value="pending">Pending</SelectItem>
-              <SelectItem value="approved">Approved</SelectItem>
-              <SelectItem value="rejected">Rejected</SelectItem>
-              <SelectItem value="expired">Expired</SelectItem>
+              <SelectItem value="open">Open</SelectItem>
+              <SelectItem value="completed">Completed</SelectItem>
             </SelectContent>
           </Select>
         </div>

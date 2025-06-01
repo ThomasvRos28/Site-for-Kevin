@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { useTranslation } from 'react-i18next'
 import './TicketList.css'
 import TicketDetailModal from './TicketDetailModal'
 
@@ -47,6 +48,7 @@ const TicketList = ({
   totalPages,
   onPageChange
 }: TicketListProps) => {
+  const { t } = useTranslation();
   const [selectedTicketForDetail, setSelectedTicketForDetail] = useState<Ticket | null>(null)
   const formatDate = (dateString: string) => {
     return new Date(dateString).toLocaleDateString('en-US', {
@@ -123,7 +125,7 @@ const TicketList = ({
                       className="status-badge"
                       style={{ backgroundColor: getStatusColor(ticket.status) }}
                     >
-                      {ticket.status}
+                      {t('tickets.status.' + ticket.status)}
                     </span>
                   </div>
                 </div>

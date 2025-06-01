@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { useTranslation } from 'react-i18next'
 import './TicketArchive.css'
 import TicketDetailModal from './TicketDetailModal'
 import ExportButton from './ExportButton'
@@ -37,6 +38,7 @@ interface Client {
 
 const TicketArchive = () => {
   const navigate = useNavigate()
+  const { t } = useTranslation()
   const [tickets, setTickets] = useState<Ticket[]>([])
   const [clients, setClients] = useState<Client[]>([])
   const [loading, setLoading] = useState(true)
@@ -253,7 +255,7 @@ const TicketArchive = () => {
                     <th>Material</th>
                     <th>Quantity</th>
                     <th>Driver</th>
-                    <th>Status</th>
+                    <th>{t('common.status')}</th>
                     <th>Image</th>
                     <th>Type</th>
                   </tr>
@@ -279,7 +281,7 @@ const TicketArchive = () => {
                           className="status-badge"
                           style={{ backgroundColor: getStatusColor(ticket.status) }}
                         >
-                          {ticket.status}
+                          {t(`tickets.status.${ticket.status}`)}
                         </span>
                       </td>
                       <td>

@@ -1,8 +1,6 @@
 import { useNavigate } from 'react-router-dom'
 import { useState, useEffect } from 'react'
 import './Home.css'
-
-import TicketList from './TicketList';
 import { useTranslation } from 'react-i18next';
 
 const Home = () => {
@@ -364,10 +362,10 @@ const Home = () => {
                 {button.icon}
               </div>
               <div className="nav-card-content">
-                <h2 style={{textTransform: 'capitalize', fontWeight: 600}}>
+                <h2 style={{textTransform: 'capitalize', fontWeight: 600, color: '#fff'}}>
                   {t(button.titleKey)}
                 </h2>
-                <p style={{marginTop: 4, color: '#666', fontSize: '1rem', fontWeight: 400}}>
+                <p style={{marginTop: 4, color: '#fff', fontSize: '1rem', fontWeight: 400}}>
                   {t(button.descKey)}
                 </p>
               </div>
