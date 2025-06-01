@@ -1,0 +1,17 @@
+[
+  {
+    "id": "1",
+    "name": "ABC Corporation",
+    "email": "contact@abc.com"
+  },
+  {
+    "id": "2",
+    "name": "XYZ Industries",
+    "email": "info@xyz.com"
+  },
+  {
+    "id": "3",
+    "name": "Tech Solutions Ltd",
+    "email": "support@techsolutions.com"
+  }
+]

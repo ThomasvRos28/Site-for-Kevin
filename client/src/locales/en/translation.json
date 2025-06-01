@@ -1,0 +1,82 @@
+{
+  "common": {
+    "submit": "Submit",
+    "submitting": "Submitting...",
+    "add": "Add",
+    "update": "Update",
+    "edit": "Edit",
+    "delete": "Delete",
+    "save": "Save",
+    "cancel": "Cancel",
+    "loading": "Loading...",
+    "error": "Error",
+    "success": "Success"
+  },
+  "geofencing": {
+    "manageGeofences": "Manage Geofences",
+    "activeGeofences": "Active Geofences",
+    "type": "Type",
+    "latitude": "Latitude",
+    "longitude": "Longitude",
+    "radius": "Radius (meters)",
+    "pickupGeofence": "Pickup Geofence",
+    "dropoffGeofence": "Dropoff Geofence",
+    "locationRequired": "Location must be within the geofence",
+    "locationValidation": "Location Validation",
+    "currentLocation": "Current Location",
+    "distanceToGeofence": "Distance to Geofence",
+    "geofenceStatus": "Geofence Status",
+    "withinRange": "Within Range",
+    "outOfRange": "Out of Range"
+  },
+  "po": {
+    "location": "Location",
+    "pickupLocation": "Pickup Location",
+    "dropoffLocation": "Dropoff Location"
+  },
+  "errors": {
+    "fetchRatesFailed": "Failed to fetch rates",
+    "syncFailed": "Failed to sync data",
+    "exportFailed": "Failed to export data"
+  },
+  "rates": {
+    "title": "Current Rates",
+    "hauling": "Hauling Rates",
+    "material": "Material Rates",
+    "rate": "Rate",
+    "unit": "Unit",
+    "materialType": "Material Type",
+    "effectiveDate": "Effective Date"
+  },
+  "tickets": {
+    "title": "Material Ticket",
+    "backup": "Physical Backup Copy",
+    "print": "Print Ticket",
+    "ticketNumber": "Ticket Number",
+    "poNumber": "Purchase Order",
+    "materialType": "Material Type",
+    "quantity": "Quantity",
+    "date": "Date & Time",
+    "location": "Location",
+    "driverSignature": "Driver Signature"
+  },
+  "ui": {
+    "materialTicketHistory": "Material Ticket History",
+    "loadingTickets": "Loading tickets...",
+    "devMode": "Dev Mode",
+    "testLogin": "Test Login",
+    "poLogin": "PO Login",
+    "truckerLogin": "Trucker Login",
+    "toggleDevMode": "Toggle Developer Mode",
+    "materialticketing": "Material Ticketing",
+    "materialticketingdesc": "Upload, manage, and process material tickets",
+    "administration": "Administration",
+    "administrationdesc": "Manage system settings and user accounts",
+    "purchaseorders": "Purchase Orders",
+    "purchaseordersdesc": "Manage and review purchase orders",
+    "clients": "Clients",
+    "clientsdesc": "View and manage client accounts"
+  },
+  "customerSignature": "Customer Signature",
+  "footer": "This is a physical backup copy of the electronic ticket. Please keep for your records."
+}

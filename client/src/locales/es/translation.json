@@ -1,0 +1,67 @@
+{
+  "common": {
+    "submit": "Enviar",
+    "submitting": "Enviando...",
+    "add": "Agregar",
+    "update": "Actualizar",
+    "edit": "Editar",
+    "delete": "Eliminar",
+    "save": "Guardar",
+    "cancel": "Cancelar"
+  },
+  "ticket": {
+    "create": "Crear Ticket",
+    "edit": "Editar Ticket",
+    "pickupLocation": "Ubicación de Recogida",
+    "dropoffLocation": "Ubicación de Entrega",
+    "materialType": "Tipo de Material",
+    "quantity": "Cantidad",
+    "unit": "Unidad",
+    "notes": "Notas"
+  },
+  "po": {
+    "create": "Crear Orden de Compra",
+    "edit": "Editar Orden de Compra",
+    "approve": "Aprobar Orden de Compra",
+    "reject": "Rechazar Orden de Compra",
+    "status": "Estado",
+    "haulerRates": "Tarifas del Transportista",
+    "resaleRates": "Tarifas de Reventa",
+    "clientApproval": "Aprobación del Cliente",
+    "location": "Ubicación"
+  },
+  "ui": {
+    "materialTicketHistory": "Historial de Tickets de Material",
+    "loadingTickets": "Cargando tickets...",
+    "devMode": "Modo Desarrollador",
+    "testLogin": "Login de Prueba",
+    "poLogin": "Login PO",
+    "truckerLogin": "Login Transportista",
+    "toggleDevMode": "Alternar Modo Desarrollador",
+    "materialticketing": "Gestión de Tickets de Material",
+    "materialticketingdesc": "Sube, gestiona y procesa tickets de material",
+    "administration": "Administración",
+    "administrationdesc": "Gestiona la configuración del sistema y las cuentas de usuario",
+    "purchaseorders": "Órdenes de Compra",
+    "purchaseordersdesc": "Gestiona y revisa las órdenes de compra",
+    "clients": "Clientes",
+    "clientsdesc": "Ver y gestionar cuentas de clientes"
+  },
+  "geofencing": {
+    "manageGeofences": "Gestionar Geocercas",
+    "activeGeofences": "Geocercas Activas",
+    "type": "Tipo",
+    "latitude": "Latitud",
+    "longitude": "Longitud",
+    "radius": "Radio (metros)",
+    "pickupGeofence": "Geocerca de Recogida",
+    "dropoffGeofence": "Geocerca de Entrega",
+    "locationRequired": "La ubicación debe estar dentro de la geocerca",
+    "locationValidation": "Validación de Ubicación",
+    "currentLocation": "Ubicación Actual",
+    "distanceToGeofence": "Distancia a la Geocerca",
+    "geofenceStatus": "Estado de la Geocerca",
+    "withinRange": "Dentro del Rango",
+    "outOfRange": "Fuera del Rango"
+  }
+} 

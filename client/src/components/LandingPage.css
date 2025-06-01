@@ -1,0 +1,132 @@
+.landing-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  background: linear-gradient(135deg, var(--background), var(--muted));
+  padding: 2rem;
+}
+
+.landing-content {
+  width: 100%;
+  max-width: 1000px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.landing-header {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+.landing-header h1 {
+  font-size: 3rem;
+  font-weight: 700;
+  color: var(--primary);
+  margin-bottom: 0.5rem;
+}
+
+.landing-header p {
+  font-size: 1.2rem;
+  color: var(--muted-foreground);
+}
+
+.login-options {
+  display: flex;
+  gap: 2rem;
+  width: 100%;
+  justify-content: center;
+}
+
+.login-card {
+  flex: 1;
+  max-width: 400px;
+  background-color: var(--background);
+  border-radius: 1rem;
+  padding: 2rem;
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+  border: 1px solid var(--border);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.login-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+  border-color: var(--primary);
+}
+
+.login-card.trucker {
+  border-top: 5px solid #FF9800;
+}
+
+.login-card.admin {
+  border-top: 5px solid #1E88E5;
+}
+
+.card-icon {
+  margin-bottom: 1.5rem;
+  color: var(--foreground);
+}
+
+.login-card.trucker .card-icon {
+  color: #FF9800;
+}
+
+.login-card.admin .card-icon {
+  color: #1E88E5;
+}
+
+.login-card h2 {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+  color: var(--foreground);
+}
+
+.login-card p {
+  text-align: center;
+  color: var(--muted-foreground);
+  margin-bottom: 1.5rem;
+}
+
+.card-arrow {
+  font-size: 1.5rem;
+  font-weight: 300;
+  position: absolute;
+  bottom: 1.5rem;
+  right: 1.5rem;
+  transition: transform 0.3s ease;
+}
+
+.login-card:hover .card-arrow {
+  transform: translateX(5px);
+}
+
+.landing-footer {
+  margin-top: 4rem;
+  text-align: center;
+  color: var(--muted-foreground);
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .login-options {
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .login-card {
+    width: 100%;
+  }
+  
+  .landing-header h1 {
+    font-size: 2.5rem;
+  }
+}

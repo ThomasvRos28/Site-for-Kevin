@@ -1,0 +1,219 @@
+/* General container adjustments */
+.po-container {
+  max-width: 100%;
+  margin: 0 auto;
+  padding: 1.5rem; /* Slightly increase overall padding */
+  /* background-color: #f9fafb; /* Optional: very light background for the whole page if needed */
+}
+
+.page-header {
+  margin-bottom: 2rem;
+}
+
+.header-content {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.back-button {
+  padding: 0.5rem 1rem;
+  border-radius: 0.375rem;
+  background-color: transparent;
+  color: var(--foreground);
+  border: 1px solid var(--border);
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.back-button:hover {
+  background-color: var(--accent);
+}
+
+.page-brand {
+  flex: 1;
+}
+
+.page-title h1 {
+  font-size: 1.875rem;
+  font-weight: 600;
+  margin: 0;
+}
+
+.page-title p {
+  color: var(--muted-foreground);
+  margin: 0.25rem 0 0;
+}
+
+.po-content {
+  background-color: var(--background);
+  border-radius: 0.5rem;
+  border: 1px solid var(--border);
+  padding: 1.5rem;
+  box-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1); /* Subtle shadow for depth */
+}
+
+.po-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem; /* Increased spacing above filters */
+}
+
+.po-header h2 {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin: 0;
+}
+
+.po-actions-header {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.create-po-button {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  background-color: var(--primary);
+  color: var(--primary-foreground);
+  border-radius: 0.375rem;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.create-po-button:hover {
+  background-color: var(--primary-hover);
+}
+
+.button-icon {
+  width: 1.25rem;
+  height: 1.25rem;
+}
+
+.po-filters {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 1rem; /* Adjusted for better spacing with table */
+}
+
+.search-container {
+  position: relative;
+  flex: 1;
+}
+
+.po-table-container {
+  border-radius: 0.5rem;
+  overflow: hidden; /* This already exists */
+  margin-top: 1.5rem; /* Add some top margin to separate from filters */
+  border: 1px solid var(--border); /* Simple border for integrated look */
+}
+
+/* Style the table itself - ShadCN's <Table> component usually renders a <table> tag */
+.po-table-container table {
+  width: 100%;
+  border-collapse: collapse; /* Ensures borders are clean */
+}
+
+/* Table Header Styling */
+.po-table-container th { /* Targets <TableHead> cells */
+  background-color: transparent; /* Transparent header background */
+  padding: 0.75rem 1rem; /* Adjust padding as needed */
+  text-align: left;
+  font-weight: 600; /* Ensure header text is bold */
+  color: var(--muted-foreground); /* Text color for muted background */
+  border-bottom: 1px solid var(--border); /* Stronger border for separation */
+}
+
+/* Table Cell Styling */
+.po-table-container td { /* Targets <TableCell> cells */
+  padding: 0.75rem 1rem; /* Consistent padding */
+  border-bottom: 1px solid var(--border); /* Border for rows */
+  vertical-align: middle; /* Align content vertically */
+}
+
+/* Add subtle vertical borders to cells (optional, can make it look busy) */
+.po-table-container th,
+.po-table-container td {
+  border-right: 1px solid var(--border);
+}
+.po-table-container th:last-child,
+.po-table-container td:last-child {
+  border-right: none;
+}
+
+/* Ensure alternating row colors if desired */
+.po-table-container tr:nth-child(even) {
+  background-color: var(--muted); /* More subtle alternating row color */
+}
+
+.po-job-details {
+  font-weight: 500;
+}
+
+.po-contact {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.contact-name {
+  font-weight: 500;
+}
+
+.contact-email {
+  font-size: 0.875rem;
+  color: var(--muted-foreground);
+}
+
+.po-actions {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.po-loading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 200px;
+}
+
+.loading-spinner {
+  width: 2rem;
+  height: 2rem;
+  border: 3px solid var(--border);
+  border-top-color: var(--primary);
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.po-error {
+  padding: 1rem;
+  background-color: var(--destructive);
+  color: var(--destructive-foreground);
+  border-radius: 0.375rem;
+  margin: 1rem 0;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .po-filters {
+    flex-direction: column;
+  }
+
+  .po-actions-header {
+    flex-wrap: wrap;
+  }
+
+  .po-table-container {
+    overflow-x: auto;
+  }
+} 

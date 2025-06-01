@@ -1,0 +1,88 @@
+.daily-ticket-export {
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.daily-ticket-export h2 {
+  margin-bottom: 20px;
+  color: #333;
+}
+
+.tickets-list {
+  margin-bottom: 20px;
+}
+
+.tickets-list h3 {
+  color: #666;
+  margin-bottom: 10px;
+}
+
+.tickets-list ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.tickets-list li {
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  border-bottom: 1px solid #eee;
+}
+
+.tickets-list li:last-child {
+  border-bottom: none;
+}
+
+.ticket-number {
+  font-weight: bold;
+  margin-right: 15px;
+  color: #2c5282;
+}
+
+.ticket-customer {
+  flex: 1;
+  margin-right: 15px;
+}
+
+.ticket-truck {
+  color: #666;
+}
+
+.export-button {
+  background-color: #4299e1;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: background-color 0.2s;
+}
+
+.export-button:hover {
+  background-color: #3182ce;
+}
+
+.export-button:disabled {
+  background-color: #a0aec0;
+  cursor: not-allowed;
+}
+
+.message {
+  margin-top: 15px;
+  padding: 10px;
+  border-radius: 4px;
+}
+
+.message.error {
+  background-color: #fed7d7;
+  color: #c53030;
+}
+
+.message.success {
+  background-color: #c6f6d5;
+  color: #2f855a;
+} 
