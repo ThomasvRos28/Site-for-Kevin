@@ -1,16 +1,29 @@
-npm install gh-pages --save-dev
+# MaterialFlow Dashboard
 
+A comprehensive material management system with split user flows for administrators and truckers.
 
-### Prerequisites
+## Features
+
+- **Split Login Flow**: Separate authentication paths for truckers and administrators
+- **Protected Routes**: Role-based access control for different parts of the application
+- **Material Ticketing**: Track and manage material tickets
+- **Purchase Order Management**: Create and manage purchase orders
+- **Administration Panel**: User management and system settings
+- **Ticket Archive**: Historical record of all tickets
+- **MTO Flagship Integration**: Connect with the MTO flagship system
+
+## Prerequisites
+
 - Node.js (v16 or higher)
 - npm or yarn
+- Git
 
-### Installation
+## Installation
 
 1. **Clone the repository**
    ```bash
-   git clone <repository-url>
-   cd materialflow-dashboard
+   git clone https://github.com/ThomasvRos28/Site-for-Kevin.git
+   cd Site-for-Kevin
    ```
 
 2. **Install backend dependencies**
@@ -25,12 +38,12 @@ npm install gh-pages --save-dev
    npm install
    ```
 
-### Running the Application
+## Running the Application
 
 1. **Start the backend server**
    ```bash
    cd server
-   npm run dev
+   node index.js
    ```
    The server will start on `http://localhost:5000`
 
@@ -44,79 +57,141 @@ npm install gh-pages --save-dev
 3. **Open your browser**
    Navigate to `http://localhost:5173` to access the application
 
+## User Flows
+
+### Landing Page
+- The application starts with a landing page that offers two login options:
+  - "Log in as Trucker" - For truck drivers and haulers
+  - "Log in as Admin" - For administrators and clients
+
+### Admin Flow
+- After logging in, administrators are directed to the home page
+- Access to all system features including:
+  - Material Ticketing
+  - Administration
+  - Ticket Archive
+  - MTO Flagship
+  - Ticket History
+  - Purchase Orders
+
+### Trucker Flow
+- After logging in, truckers are directed to trucker-specific features
+- Limited access to only relevant functionality
+
+## Deployment
+
+### GitHub Pages Deployment
+
+1. **Set up GitHub Pages**
+   ```bash
+   cd client
+   npm install gh-pages --save-dev
+   ```
+
+2. **Configure Vite for GitHub Pages**
+   The `vite.config.ts` file should have:
+   ```typescript
+   base: process.env.NODE_ENV === 'production' ? '/Site-for-Kevin/' : '/',
+   ```
+
+3. **Create GitHub Actions workflow**
+   Create `.github/workflows/deploy.yml` with the appropriate configuration for automatic deployment.
+
+4. **Push changes to GitHub**
+   ```bash
+   git add .
+   git commit -m "Update application with GitHub Pages setup"
+   git push origin main-clean
+   ```
+
+5. **Set GitHub Repository Settings**
+   - Go to repository Settings > Pages
+   - Set source to "GitHub Actions"
+
 ## API Endpoints
+
+### Authentication
+- `POST /api/auth/login` - Admin login
+- `POST /api/trucker/login` - Trucker login
 
 ### Tickets
 - `POST /api/tickets/upload` - Upload a new ticket
 - `GET /api/tickets?page=1&limit=10` - Get paginated tickets
 - `PATCH /api/tickets/:id` - Update ticket information
 
+### Purchase Orders
+- `GET /api/purchase-orders` - Get all purchase orders
+- `POST /api/purchase-orders` - Create a new purchase order
+
 ### Clients
 - `GET /api/clients` - Get all clients
-
-### Invoices
-- `POST /api/invoices/send` - Send invoices for selected tickets
-
-### Health Check
-- `GET /api/health` - Server health status
 
 ## Technologies Used
 
 ### Frontend
 - React 18 with TypeScript
-- React Router for navigation
+- React Router for navigation and protected routes
 - Axios for API calls
-- CSS3 with modern styling
+- CSS3 with modern styling and global variables
 - Vite for build tooling
 
 ### Backend
 - Node.js with Express
+- MongoDB for data storage
+- JWT for authentication
+- Firebase Admin SDK
 - Multer for file uploads
-- Nodemailer for email functionality
-- UUID for unique identifiers
-- CORS for cross-origin requests
 
 ## Features in Detail
 
-### File Upload
-- Supports multiple file types (PDF, DOC, images)
-- File size validation (10MB limit)
-- Automatic file naming with timestamps
-- Client association required
+### Authentication and Authorization
+- Split login flow with role-based access
+- JWT token-based authentication
+- Protected routes for admin and trucker-specific features
+- Local storage for maintaining session state
 
-### Ticket Management
-- Real-time ticket list updates
-- Pagination for large datasets
-- Status management (pending, processing, completed, rejected)
-- Bulk selection for operations
+### Material Ticketing
+- Create and manage material tickets
+- Associate tickets with clients and haulers
+- Track ticket status and history
+- Upload supporting documents
 
-### Export Functionality
-- CSV export of all tickets
-- Includes all ticket metadata
-- Automatic file download
+### Purchase Order Management
+- Create purchase orders with material rates
+- Associate orders with clients and haulers
+- Approval workflow for purchase orders
+- Rate management for different material types
 
-### Invoice System
-- Email-based invoice sending
-- Bulk invoice processing
-- Mock email implementation (easily replaceable with real SMTP)
+### Administration
+- User management for admins and truckers
+- System settings configuration
+- API endpoint management
+- Access control settings
+
+### Responsive Design
+- Mobile-friendly interface
+- Consistent styling with global CSS variables
+- Card-based UI components
+- Intuitive navigation
 
 ## Development Notes
 
-- The application uses JSON files for data storage (suitable for demo/development)
-- Email functionality is mocked but can be easily configured with real SMTP settings
-- File uploads are stored locally in the `server/uploads` directory
-- The frontend includes responsive design for mobile devices
+- The application uses MongoDB for data storage
+- Authentication is handled via JWT tokens stored in localStorage
+- File uploads are stored in the `server/uploads` directory
+- The frontend includes responsive design for all devices
+- Git repository is configured to ignore node_modules and build artifacts
 
-## Future Enhancements
+## Repository Management
 
-- Database integration (PostgreSQL, MongoDB)
-- Real email service integration
-- User authentication and authorization
-- Advanced filtering and search
-- File preview functionality
-- Audit logging
-- Real-time notifications
+- The repository uses the `main-clean` branch as the primary branch
+- A comprehensive `.gitignore` file prevents tracking of:
+  - `node_modules` directories
+  - Build artifacts
+  - Environment files
+  - Log files
+  - Editor configuration files
 
 ## License
 
-This project is for demonstration purposes.
+This project is proprietary and for demonstration purposes only.
